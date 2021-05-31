@@ -6,3 +6,4 @@ const User = require("./user");
 // associations for above
 
 // export
+module.exports = { Comment, Post, User };
