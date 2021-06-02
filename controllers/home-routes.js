@@ -1,8 +1,13 @@
 const router = require("express").Router();
 const { Post, Comment, User } = require("../models");
+const withAuth = require("../utils/auth");
 
 router.get("/", (req, res) => {
-  res.send("Home Route Success");
+  res.render("login");
+});
+
+router.get("/profile", withAuth, async (req, res) => {
+  res.render("profile");
 });
 
 module.exports = router;
