@@ -1,9 +1,14 @@
-// require in comment post and user
-const Comment = require("./comment");
 const Post = require("./post");
 const User = require("./user");
 
 // associations for above
+Post.belongsTo(User, {
+  foreignKey: "user_id",
+});
+User.hasMany(Post, {
+  foreignKey: "user_id",
+  onDelete: "CASCADE",
+});
 
 // export
-module.exports = { Comment, Post, User };
+module.exports = { Post, User };
