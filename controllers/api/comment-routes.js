@@ -2,7 +2,7 @@ const router = require("express").Router();
 const { Comment } = require("../../models");
 const withAuth = require("../../utils/auth");
 
-Comment.get("/", (req, res) => {
+router.get("/", async (req, res) => {
   try {
     // Get all comments and JOIN with post data
     const commentData = await Comment.findAll({
@@ -27,7 +27,7 @@ Comment.get("/", (req, res) => {
   }
 });
 
-Comment.post("/", withAuth, (req, res) => {
+router.post("/", withAuth, async (req, res) => {
   try {
     const newPost = await Post.create({
       ...req.body,
