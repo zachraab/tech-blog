@@ -6,38 +6,34 @@ router.get("/", async (req, res) => {
   try {
     // Get all comments and JOIN with post data
     const commentData = await Comment.findAll({
-      include: [
-        {
-          model: Post,
-          attributes: ["name"],
-        },
-      ],
+      // include: [
+      //   {
+      //     model: Post,
+      //     attributes: ["name"],
+      //   },
+      // ],
     });
 
     // Serialize data so the template can read it
-    const comments = commentData.map((comment) => comment.get({ plain: true }));
+    // const comments = commentData.map((comment) => comment.get({ plain: true }));
 
     // Pass serialized data and session flag into template
-    res.render("homepage", {
-      comments,
-      logged_in: req.session.logged_in,
-    });
+    res.json(commentData);
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
-router.post("/", withAuth, async (req, res) => {
-  console.log("hello comment handler");
+router.post("/", async (req, res) => {
+  console.log("comment post handler");
+  console.log(req.body);
   try {
-    const newPost = await Post.create({
-      ...req.body,
-      user_id: req.session.user_id,
-    });
+    const newComment = await Comment.create(req.body);
 
-    res.status(200).json(newPost);
+    res.status(200).json(newComment);
   } catch (err) {
-    res.status(400).json(err);
+    res.status(500).json(err);
+    console.log(err);
   }
 });
 
