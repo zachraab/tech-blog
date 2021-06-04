@@ -23,19 +23,19 @@
   </form>
 </div>
 <div class="col-md-6">
-  {{#if posts.length}}
+  {{#if comments.length}}
     <div class="col-md-6 project-list">
       <h3>Current Comments:</h3>
 
       {{#each comments as |comment|}}
         <div class="row mb-2">
           <div class="col-md-8">
-            <h4><a href="/posts/{{comment.id}}">{{comment.name}}: {{comment.comment}}</a></h4>
+            <h4><a href="/posts/{{id}}">{{name}}: {{comment}}</a></h4>
           </div>
           <div class="col-md-4">
             <button
               class="btn btn-sm btn-danger"
-              data-id="{{comment.id}}"
+              data-id="{{id}}"
             >DELETE</button>
           </div>
         </div>
