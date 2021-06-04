@@ -4,3 +4,20 @@
   <p>{{content}}</p>
   <p>Created by {{user.name}} on {{format_date date_created}}</p>
 </div>
+<div class="col-md-6">
+  <h4>Leave a Comment:</h2>
+
+  <form class="form login-form">
+    <div class="form-group">
+      <label for="email-login">name:</label>
+      <input class="form-input" type="text" id="comment-name" />
+    </div>
+    <div class="form-group">
+      <label for="password-login">message:</label>
+      <input class="form-input" type="password" id="comment-message" />
+    </div>
+    <div class="form-group">
+      <button class="btn btn-primary" type="submit">send</button>
+    </div>
+  </form>
+</div>
