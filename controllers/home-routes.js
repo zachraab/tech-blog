@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Post, User } = require("../models");
+const { Post, User, Comment } = require("../models");
 const withAuth = require("../utils/auth");
 
 router.get("/", async (req, res) => {
@@ -27,6 +27,7 @@ router.get("/", async (req, res) => {
   }
 });
 
+//broken
 router.get("/posts/:id", async (req, res) => {
   try {
     const postData = await Post.findByPk(req.params.id, {
@@ -37,14 +38,33 @@ router.get("/posts/:id", async (req, res) => {
         },
       ],
     });
+    const commentData = await Comment.findOne(req.body, {
+      where: {
+        post_id: req.params.id,
+      },
+      include: [
+        {
+          model: Post,
+          attributes: ["title"],
+        },
+      ],
+    });
 
     const post = postData.get({ plain: true });
+    const comment = commentData.get({ plain: true });
+
+    // console.log(req.params.id);
+    // console.log(post);
+    // console.log(comment);
+
     res.render("post", {
       ...post,
+      comment,
       logged_in: req.session.logged_in,
     });
   } catch (err) {
     res.status(500).json(err);
+    console.log(err);
   }
 });
 
