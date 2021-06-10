@@ -19,6 +19,15 @@ Post.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    // image: {
+    //   type: DataTypes.STRING,
+    // },
+    // emoji: {
+    //   type: DataTypes.STRING,
+    // },
+    // allow_comments: {
+    //   type: DataTypes.BOOLEAN,
+    // },
     date_created: {
       type: DataTypes.DATE,
       allowNull: false,

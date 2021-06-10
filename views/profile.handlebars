@@ -6,12 +6,13 @@
 
 <div class="row mt-4">
   <div class="col-md-6">
-    <h3>Create a New Post:</h3>
+    <h3>Write a New Blog Post:</h3>
 
     <form class="form new-project-form">
       <div class="form-group">
         <label for="project-name">post name:</label>
         <input
+          placeholder="Tip: Something that will grab a reader's attention!"
           class="form-input"
           type="text"
           id="project-name"
@@ -19,12 +20,43 @@
         />
       </div>
       <div class="form-group">
-        <label for="project-desc">content:</label>
+        <label for="project-desc">post content:</label>
         <textarea
+          placeholder="Tip: Be sure to include resources at the end of your post!"
           class="form-input"
           id="project-desc"
           name="project-desc"
         ></textarea>
+      </div>
+      <div class="form-group">
+        <label for="project-name">emoji:</label>
+        <input
+          placeholder="Tip: Press the windows key (⊞) + period (.) to select an emoji "
+          class="form-input"
+          type="text"
+          id="post-emoji"
+          name="project-name"
+        />
+      </div>
+      <div class="form-group">
+        <label for="project-name">image:</label>
+        <input
+          placeholder="URL of image that you would like to include"
+          class="form-input"
+          type="text"
+          id="post-image"
+          name="project-name"
+        />
+      </div>
+      <div class="form-group">
+        <label for="project-name">allow comments?</label>
+        <input
+          placeholder="Tip: Press the windows key (⊞) + period (.) to select an emoji "
+          class="form-input"
+          type="checkbox"
+          id="post-allow-comments"
+          name="project-name"
+        />
       </div>
       <div class="form-group">
         <button type="submit" class="btn btn-primary">Create</button>

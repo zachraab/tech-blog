@@ -46,9 +46,13 @@ router.get("/posts/:id", async (req, res) => {
     const post = postData.get({ plain: true });
     const comment = commentData.map((comment) => comment.get({ plain: true }));
 
+    const userData = await User.findByPk(req.session.user_id);
+    const userName = userData.name;
+
     res.render("post", {
       ...post,
       comment,
+      userName,
       logged_in: req.session.logged_in,
     });
   } catch (err) {

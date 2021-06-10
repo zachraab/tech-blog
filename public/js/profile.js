@@ -3,6 +3,9 @@ const newFormHandler = async (event) => {
 
   const title = document.querySelector("#project-name").value.trim();
   const content = document.querySelector("#project-desc").value.trim();
+  const emoji = document.querySelector("#post-emoji").value.trim();
+  const image = document.querySelector("#post-image").value.trim();
+  const allowComments = document.querySelector("#post-allow-comments").checked;
 
   if (title && content) {
     const response = await fetch(`/api/posts`, {
