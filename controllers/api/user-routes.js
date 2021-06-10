@@ -9,10 +9,10 @@ router.get("/", async (req, res) => {
           model: Post,
           attributes: ["title", "content"],
         },
-        // {
-        //   model: Comment,
-        //   attributes: ["comment"],
-        // },
+        {
+          model: Comment,
+          attributes: ["comment"],
+        },
       ],
     });
 
