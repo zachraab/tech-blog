@@ -1,34 +1,30 @@
 const router = require("express").Router();
-const { Comment } = require("../../models");
+const { Comment, Post } = require("../../models");
 const withAuth = require("../../utils/auth");
 
 router.get("/", async (req, res) => {
   try {
     // Get all comments and JOIN with post data
     const commentData = await Comment.findAll({
-      // include: [
-      //   {
-      //     model: Post,
-      //     attributes: ["name"],
-      //   },
-      // ],
+      include: [
+        {
+          model: Post,
+          attributes: ["title", "content"],
+        },
+      ],
     });
 
-    // Serialize data so the template can read it
-    // const comments = commentData.map((comment) => comment.get({ plain: true }));
-
-    // Pass serialized data and session flag into template
     res.json(commentData);
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", withAuth, async (req, res) => {
   try {
     const newComment = await Comment.create({
-      name: req.body.name,
-      comment: req.body.comment,
+      name: req.session.user_id,
+      comment: req.body.commentMessage,
       post_id: req.body.post_id,
     });
     console.log(newComment);

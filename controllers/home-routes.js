@@ -27,7 +27,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-//broken
 router.get("/posts/:id", async (req, res) => {
   try {
     const postData = await Post.findByPk(req.params.id, {
@@ -38,24 +37,14 @@ router.get("/posts/:id", async (req, res) => {
         },
       ],
     });
-    const commentData = await Comment.findOne(req.body, {
+    const commentData = await Comment.findAll({
       where: {
         post_id: req.params.id,
       },
-      include: [
-        {
-          model: Post,
-          attributes: ["title"],
-        },
-      ],
     });
 
     const post = postData.get({ plain: true });
-    const comment = commentData.get({ plain: true });
-
-    // console.log(req.params.id);
-    // console.log(post);
-    // console.log(comment);
+    const comment = commentData.map((comment) => comment.get({ plain: true }));
 
     res.render("post", {
       ...post,
