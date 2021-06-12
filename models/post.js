@@ -16,18 +16,18 @@ Post.init(
       allowNull: false,
     },
     content: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
-    // image: {
-    //   type: DataTypes.STRING,
-    // },
-    // emoji: {
-    //   type: DataTypes.STRING,
-    // },
-    // allow_comments: {
-    //   type: DataTypes.BOOLEAN,
-    // },
+    image: {
+      type: DataTypes.STRING,
+    },
+    emoji: {
+      type: DataTypes.STRING,
+    },
+    allow_comments: {
+      type: DataTypes.BOOLEAN,
+    },
     date_created: {
       type: DataTypes.DATE,
       allowNull: false,
@@ -35,6 +35,7 @@ Post.init(
     },
     user_id: {
       type: DataTypes.INTEGER,
+      onDelete: "CASCADE",
       references: {
         model: "user",
         key: "id",

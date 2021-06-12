@@ -13,7 +13,6 @@ router.get("/", async (req, res) => {
         },
       ],
     });
-
     // Serialize data so the template can read it
     const posts = postData.map((post) => post.get({ plain: true }));
 
@@ -44,15 +43,31 @@ router.get("/posts/:id", async (req, res) => {
     });
 
     const post = postData.get({ plain: true });
-    const comment = commentData.map((comment) => comment.get({ plain: true }));
+    const commentArray = commentData.map((comment) =>
+      comment.get({ plain: true })
+    );
+    const comment = commentArray.map((comment) => ({
+      ...comment,
+      owner: req.session.user_id == post.user_id,
+    }));
 
-    const userData = await User.findByPk(req.session.user_id);
-    const userName = userData.name;
+    // If logged in, grab username to autofill comment form
+    // const grabUserName = async () => {
+    //   if (req.session.logged_in) {
+    //     const userData = await User.findByPk(req.session.user_id);
+    //     const userName = userData.name;
+    //     return userName;
+    //   }
+    // };
 
+    // const userData = await User.findByPk(req.session.user_id);
+    // const userName = userData.name;
+
+    console.log(post);
     res.render("post", {
       ...post,
       comment,
-      userName,
+      // userName,
       logged_in: req.session.logged_in,
     });
   } catch (err) {

@@ -3,8 +3,7 @@
   <div class="row mb-4 project">
     <div class="col-md-5">
       <h2>
-        <!-- Call helper function with triple brackets to render the emoji span as HTML -->
-        {{{get_emoji}}}
+        {{#if emoji}}{{emoji}}{{/if}}
         <a href="/posts/{{id}}">{{title}}</a>
       </h2>
       <p>Created by
@@ -12,11 +11,22 @@
         on
         {{format_date date_created}}</p>
     </div>
+
     <div class="col-md-7">
       <p>
         {{content}}
       </p>
     </div>
+    {{#if image}}
+      <div class="col-md-2 mb-4">
+        <img
+          id="blog-image"
+          style="height:100px;"
+          src="{{image}}"
+          alt="Blog Post Image"
+        />
+      </div>
+    {{/if}}
   </div>
 {{/each}}
 {{#each comments as |comment|}}

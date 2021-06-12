@@ -1,6 +1,11 @@
 <div class="row">
   <div class="col-auto">
     <h2>Welcome, {{name}}!</h2>
+    <button
+      class="btn btn-sm btn-danger"
+      id="delete-user-btn"
+      data-id="{{id}}"
+    >DELETE USER PROFILE</button>
   </div>
 </div>
 
@@ -29,33 +34,64 @@
         ></textarea>
       </div>
       <div class="form-group">
-        <label for="project-name">emoji:</label>
-        <input
-          placeholder="Tip: Press the windows key (⊞) + period (.) to select an emoji "
-          class="form-input"
-          type="text"
+        <label for="post-emoji">select an emoji:</label>
+        <select
+          name="post-emoji"
+          class="m-4 p-2 bg-primary text-light"
+          style="width:100px; border-radius:10px;"
           id="post-emoji"
-          name="project-name"
-        />
+        >
+          <option value="">none</option>
+          <option value="&#128507;">&#128507;</option>
+          <option value="&#9749;">&#9749;</option>
+          <option value="&#9203;">&#9203;</option>
+          <option value="🎨">🎨</option>
+          <option value="💎">💎</option>
+          <option value="❤">❤</option>
+          <option value="🎵">🎵</option>
+          <option value="🧬">🧬</option>
+          <option value="🧰">🧰</option>
+          <option value="⚔">⚔</option>
+          <option value="✏">✏</option>
+          <option value="🐛">🐛</option>
+          <option value="🐳">🐳</option>
+          <option value="🍔">🍔</option>
+          <option value="🍜">🍜</option>
+          <option value="🧁">🧁</option>
+          <option value="🍉">🍉</option>
+          <option value="🌳">🌳</option>
+          <option value="🌻">🌻</option>
+          <option value="🚗">🚗</option>
+          <option value="✈">✈</option>
+          <option value="🛸">🛸</option>
+          <option value="🌎">🌎</option>
+          <option value="🏕">🏕</option>
+          <option value="🌈">🌈</option>
+          <option value="🌠">🌠</option>
+          <option value="🌞">🌞</option>
+          <option value="🌊">🌊</option>
+          <option value="🔥">🔥</option>
+          <option value="⛄">⛄</option>
+
+        </select>
       </div>
       <div class="form-group">
-        <label for="project-name">image:</label>
+        <label for="post-image">image:</label>
         <input
-          placeholder="URL of image that you would like to include"
+          placeholder="Enter the URL of an image that you would like to include"
           class="form-input"
           type="text"
           id="post-image"
-          name="project-name"
+          name="post-image"
         />
       </div>
       <div class="form-group">
-        <label for="project-name">allow comments?</label>
+        <label for="post-allow-comments">allow comments?</label>
         <input
-          placeholder="Tip: Press the windows key (⊞) + period (.) to select an emoji "
           class="form-input"
           type="checkbox"
           id="post-allow-comments"
-          name="project-name"
+          name="post-allow-comments"
         />
       </div>
       <div class="form-group">
@@ -69,11 +105,24 @@
       <h3>Current Posts:</h3>
 
       {{#each posts as |post|}}
-        <div class="row mb-2">
-          <div class="col-md-8">
-            <h4><a href="/posts/{{id}}">{{title}}</a></h4>
+        <div class="row justify-space-between mb-2">
+          <div class="col-md-5">
+            <h4>{{#if emoji}}{{emoji}}{{/if}}<a
+                href="/posts/{{id}}"
+              >{{title}}</a></h4>
+
           </div>
-          <div class="col-md-4">
+          {{#if image}}
+            <div class="col-md-2">
+              <img
+                id="blog-image"
+                style="height:50px;"
+                src="{{image}}"
+                alt="Blog Post Image"
+              />
+            </div>
+          {{/if}}
+          <div class="col-md-2">
             <button
               class="btn btn-sm btn-danger"
               data-id="{{id}}"

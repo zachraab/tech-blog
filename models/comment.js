@@ -19,8 +19,13 @@ Comment.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    isApproved: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
     post_id: {
       type: DataTypes.INTEGER,
+      onDelete: "CASCADE",
       references: {
         model: "post",
         key: "id",
@@ -28,6 +33,7 @@ Comment.init(
     },
     user_id: {
       type: DataTypes.INTEGER,
+      onDelete: "CASCADE",
       references: {
         model: "user",
         key: "id",

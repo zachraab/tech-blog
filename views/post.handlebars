@@ -1,17 +1,31 @@
-<div class="text-center" id="post-container" data-id="{{id}}">
-  <h2>{{title}}</h2>
-  <p>{{{get_emoji}}}</p>
-  <p>{{content}}</p>
-  <p>Created by {{user.name}} on {{format_date date_created}}</p>
-</div>
+
+  <div class="text-center justify-center" id="post-container" data-id="{{id}}">
+    <h2>{{title}}{{#if emoji}} {{emoji}}{{/if}}</h2>
+    
+    <p>{{content}}</p>
+    <p>Created by {{user.name}} on {{format_date date_created}}</p>
+  {{#if image}}
+  <div id="blog-image-container">
+    <img id="blog-image" src="{{image}}" alt="Blog Post Image">
+  </div>
+  {{/if}}
+  </div>
+{{#unless logged_in}}
+{{#if allow_comments}}
+<h4 class="text-center">Login to leave a comment!</h4>
+{{/if}}
+{{/unless}}
 <div class="row">
-<div class="col-md-6">
+{{#if logged_in}}
+<div class="mt-4 col-md-6">
   <h4>Leave a Comment:</h2>
 
   <form class="form" id="new-comment-form" data-id={{id}}>
     <div class="form-group">
       <label for="comment-name">name:</label>
-      <input value="{{userName}}" class="form-input" type="text" id="comment-name" readonly/>
+      <input value="{{userName}}" class="form-input" type="text" id="comment-name" 
+      {{!-- readonly --}}
+      />
     </div>
     <div class="form-group">
       <label for="comment-message">message:</label>
@@ -22,18 +36,28 @@
     </div>
   </form>
 </div>
-<div class="col-md-6">
+{{/if}}
+<div class="mt-4 col-md-6">
   {{#if comment}}
-    <div class="comment-list">
-      <h4>Current Comments:</h4>
+    <div>
+      <h4>Comments:</h4>
 
       {{#each comment as |item|}}
         <div class="row mb-2">
           <div class="col-md-8">
             <p class="mt-4">{{comment}} -{{name}}</p>
           </div>
-          <div class="mt-4 col-md-4">
+          
+          {{!-- {{#unless isApproved}}
+          {{#if owner}} --}}
+          <div class="mt-4 col-md-2">
+            <button type="click" class="btn btn-success btn-sm" data-id="{{id}}" data-approved={{isApproved}} id="approve-btn">Approve</button>
+          </div>
+{{!--     {{/if}}
+          {{/unless}} --}}
+          <div class="mt-4 col-md-2">
             <button
+              id="delete-comment-btn"
               class="btn btn-sm btn-danger"
               data-id="{{id}}"
             >DELETE</button>

@@ -27,8 +27,6 @@ const newCommentHandler = async (event) => {
 };
 
 const delCommentButtonHandler = async (event) => {
-  console.log("______________COMMENT DELETE_________________");
-  console.log(event.target.hasAttribute("data-id"));
   if (event.target.hasAttribute("data-id")) {
     const id = event.target.getAttribute("data-id");
     console.log(id);
@@ -45,10 +43,31 @@ const delCommentButtonHandler = async (event) => {
   }
 };
 
+const approveButtonHandler = async (e) => {
+  e.preventDefault();
+  const test = event.target.getAttribute("data-approved");
+  const commentID = event.target.getAttribute("data-id");
+
+  const response = await fetch(`/api/comments/approve/${commentID}`, {
+    method: "PUT",
+    body: { approved: !test },
+  });
+
+  if (response.ok) {
+    document.location.reload();
+  } else {
+    alert("Failed to approve comment");
+  }
+};
+
 document
   .querySelector("#new-comment-form")
   .addEventListener("submit", (e) => newCommentHandler(e));
 
-document
-  .querySelector(".comment-list")
-  .addEventListener("click", delCommentButtonHandler);
+// document
+//   .querySelector("#delete-comment-btn")
+//   .addEventListener("click", delCommentButtonHandler);
+
+// document
+//   .querySelector("#approve-btn")
+//   .addEventListener("click", approveButtonHandler);
