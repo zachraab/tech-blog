@@ -43,16 +43,23 @@ const delCommentButtonHandler = async (event) => {
   }
 };
 
-const approveButtonHandler = async (e) => {
-  e.preventDefault();
-  const test = event.target.getAttribute("data-approved");
+const approveButtonHandler = async (event) => {
+  event.preventDefault();
+  const approveID = JSON.parse(event.target.getAttribute("data-approved"));
   const commentID = event.target.getAttribute("data-id");
+  const approveSwitch = {
+    isApproved: !approveID,
+  };
 
   const response = await fetch(`/api/comments/approve/${commentID}`, {
     method: "PUT",
-    body: { approved: !test },
+    body: JSON.stringify(approveSwitch),
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
 
+  console.log(response.json());
   if (response.ok) {
     document.location.reload();
   } else {
@@ -60,14 +67,16 @@ const approveButtonHandler = async (e) => {
   }
 };
 
-document
-  .querySelector("#new-comment-form")
-  .addEventListener("submit", (e) => newCommentHandler(e));
+if (document.querySelector("#new-comment-form")) {
+  document
+    .querySelector("#new-comment-form")
+    .addEventListener("submit", newCommentHandler);
+}
 
 // document
 //   .querySelector("#delete-comment-btn")
 //   .addEventListener("click", delCommentButtonHandler);
 
-// document
-//   .querySelector("#approve-btn")
-//   .addEventListener("click", approveButtonHandler);
+document
+  .querySelector("#approve-btn")
+  .addEventListener("click", approveButtonHandler);

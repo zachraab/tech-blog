@@ -52,22 +52,21 @@ router.get("/posts/:id", async (req, res) => {
     }));
 
     // If logged in, grab username to autofill comment form
-    // const grabUserName = async () => {
-    //   if (req.session.logged_in) {
-    //     const userData = await User.findByPk(req.session.user_id);
-    //     const userName = userData.name;
-    //     return userName;
-    //   }
-    // };
+    const grabUserName = async () => {
+      if (req.session.logged_in) {
+        const userData = await User.findByPk(req.session.user_id);
+        const userName = userData.name;
+        return userName;
+      } else {
+        return "Guest User";
+      }
+    };
 
-    // const userData = await User.findByPk(req.session.user_id);
-    // const userName = userData.name;
-
-    console.log(post);
+    // console.log(post);
     res.render("post", {
       ...post,
       comment,
-      // userName,
+      userName: await grabUserName(),
       logged_in: req.session.logged_in,
     });
   } catch (err) {
