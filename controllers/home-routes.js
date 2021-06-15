@@ -28,6 +28,7 @@ router.get("/", async (req, res) => {
 
 router.get("/posts/:id", async (req, res) => {
   try {
+    //find the post
     const postData = await Post.findByPk(req.params.id, {
       include: [
         {
@@ -36,6 +37,7 @@ router.get("/posts/:id", async (req, res) => {
         },
       ],
     });
+    // find all associated comments
     const commentData = await Comment.findAll({
       where: {
         post_id: req.params.id,
@@ -48,26 +50,26 @@ router.get("/posts/:id", async (req, res) => {
     );
     const comment = commentArray.map((comment) => ({
       ...comment,
+      //check if current user is the same as the post creator and log boolean
       owner: req.session.user_id == post.user_id,
     }));
 
     // If logged in, grab username to autofill comment form
-    // const grabUserName = async () => {
-    //   if (req.session.logged_in) {
-    //     const userData = await User.findByPk(req.session.user_id);
-    //     const userName = userData.name;
-    //     return userName;
-    //   }
-    // };
+    const grabUserName = async () => {
+      if (req.session.logged_in) {
+        const userData = await User.findByPk(req.session.user_id);
+        const userName = userData.name;
+        return userName;
+      } else {
+        return "Guest User";
+      }
+    };
 
-    // const userData = await User.findByPk(req.session.user_id);
-    // const userName = userData.name;
-
-    console.log(post);
+    // console.log(post);
     res.render("post", {
       ...post,
       comment,
-      // userName,
+      userName: await grabUserName(),
       logged_in: req.session.logged_in,
     });
   } catch (err) {

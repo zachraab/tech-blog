@@ -34,7 +34,7 @@ router.post("/", withAuth, async (req, res) => {
       post_id: parseInt(req.body.post_id),
       user_id: req.session.user_id,
     });
-    console.log(newComment);
+    // console.log(newComment);
 
     res.status(200).json(newComment);
   } catch (err) {
@@ -60,6 +60,8 @@ router.put("/:id", async (req, res) => {
 
 // creator of post to approve comment
 router.put("/approve/:id", async (req, res) => {
+  console.log("_____________HITTING APPROVE ROUTE_________________");
+  console.log(req.body);
   try {
     // const getComment = await Comment.findOne({
     //   where: {
@@ -81,7 +83,7 @@ router.put("/approve/:id", async (req, res) => {
         id: req.params.id,
       },
     });
-    console.log(req.body);
+    // console.log(updateComment);
 
     res.status(200).json(updateComment);
   } catch (err) {

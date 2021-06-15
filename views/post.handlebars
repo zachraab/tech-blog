@@ -10,13 +10,15 @@
   </div>
   {{/if}}
   </div>
-{{#unless logged_in}}
-{{!-- {{#if allow_comments}} --}}
-<h4 class="text-center">Login to leave a comment!</h4>
-{{!-- {{/if}} --}}
-{{/unless}}
+
 <div class="row">
+{{#unless allow_comments}}
+<div class="mt-4">
+  <h4>Sorry, new comments have been disabled on this post!</h2>
+</div>
+{{/unless}}
 {{#if logged_in}}
+{{#if allow_comments}}
 <div class="mt-4 col-md-6">
   <h4>Leave a Comment:</h2>
 
@@ -24,7 +26,7 @@
     <div class="form-group">
       <label for="comment-name">name:</label>
       <input value="{{userName}}" class="form-input" type="text" id="comment-name" 
-      {{!-- readonly --}}
+      readonly
       />
     </div>
     <div class="form-group">
@@ -37,7 +39,9 @@
   </form>
 </div>
 {{/if}}
+{{/if}}
 <div class="mt-4 col-md-6">
+  
   {{#if comment}}
     <div>
       <h4>Comments:</h4>
@@ -48,13 +52,13 @@
             <p class="mt-4">{{comment}} -{{name}}</p>
           </div>
           
-          {{!-- {{#unless isApproved}}
-          {{#if owner}} --}}
+          {{!-- {{#unless isApproved}} --}}
+          {{#if owner}} 
           <div class="mt-4 col-md-2">
             <button type="click" class="btn btn-success btn-sm" data-id="{{id}}" data-approved={{isApproved}} id="approve-btn">Approve</button>
           </div>
-{{!--     {{/if}}
-          {{/unless}} --}}
+          {{/if}}
+          {{!-- {{/unless}} --}}
           <div class="mt-4 col-md-2">
             <button
               id="delete-comment-btn"
@@ -66,6 +70,11 @@
       {{/each}}
     </div>
   {{/if}}
+  {{#unless logged_in}}
+{{!-- {{#if allow_comments}} --}}
+<h5>Please, login to leave a comment!</h5>
+{{!-- {{/if}} --}}
+{{/unless}}
 </div>
 </div>
 <script src="/js/post.js"></script>
