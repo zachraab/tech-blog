@@ -15,7 +15,7 @@
 
     <form class="form new-blog-post">
       {{! blog post title }}
-      <div class="form-group">
+      <div class="form-group pb-2">
         <label for="project-name">post name:</label>
         <input
           placeholder="Tip: Something that will grab a reader's attention!"
@@ -79,7 +79,7 @@
         </select>
       </div>
       {{! image }}
-      <div class="form-group">
+      <div class="form-group pb-2">
         <label for="post-image">image:</label>
         <input
           placeholder="Enter the URL of an image that you would like to include"
@@ -90,18 +90,22 @@
         />
       </div>
       {{! allow comments }}
-      <div class="form-group">
+      <div class="form-group pb-4">
         <label for="post-allow-comments">allow comments?</label>
         <input
-          class="form-input"
+          class="ml-4"
           type="checkbox"
           id="post-allow-comments"
           name="post-allow-comments"
         />
       </div>
       {{! create btn }}
-      <div class="form-group">
-        <button type="submit" class="btn btn-primary">Create</button>
+      <div class="form-group" id="submit-btn-container">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          id="submit-btn"
+        >Create</button>
       </div>
     </form>
   </div>

@@ -1,4 +1,5 @@
 const newFormHandler = async (event) => {
+  console.log("create new post");
   event.preventDefault();
 
   const title = document.querySelector("#project-name").value.trim();
@@ -46,6 +47,19 @@ const editPostHandler = async (event) => {
         document.getElementById("post-image").value = data.image;
         document.getElementById("post-allow-comments").value =
           data.alllow_comments;
+
+        let submitBtn = document.getElementById("submit-btn");
+        submitBtn.innerHTML = "UPDATE";
+        submitBtn.id = "update-btn";
+        // submitBtn.type = "button";
+        submitBtn.removeAttribute("type");
+        submitBtn.setAttribute("data-id", `${id}`);
+
+        let cancelBtn = document.createElement("button");
+        cancelBtn.setAttribute("class", "btn btn-danger");
+        cancelBtn.setAttribute("id", "cancel-btn");
+        cancelBtn.innerHTML = "CANCEL";
+        document.getElementById("submit-btn-container").append(cancelBtn);
       });
 
     // if (response.ok) {
@@ -81,6 +95,32 @@ const editPostHandler = async (event) => {
   //     );
   //   },
   // });
+};
+
+const updateHandler = async (event) => {
+  event.preventDefault();
+  console.log("updateHandler !!______________");
+  const title = document.querySelector("#project-name").value.trim();
+  const content = document.querySelector("#project-desc").value.trim();
+  const emoji = document.querySelector("#post-emoji").value;
+  const image = document.querySelector("#post-image").value.trim();
+  const allow_comments = document.querySelector("#post-allow-comments").checked;
+
+  const id = event.target.getAttribute("data-id");
+  console.log(id);
+  // await fetch(`/api/posts/${id}`, {
+  //   method: "PUT",
+  //   body: JSON.stringify({ title, content, image, emoji, allow_comments }),
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  // });
+
+  // if (response.ok) {
+  //   document.location.reload();
+  // } else {
+  //   alert("Failed to update post");
+  // }
 };
 
 const delButtonHandler = async (event) => {
@@ -139,6 +179,18 @@ const identifyButton = (event) => {
 document
   .querySelector(".new-blog-post")
   .addEventListener("submit", newFormHandler);
+
+if (document.querySelector("#update-btn")) {
+  document
+    .querySelector("#update-btn")
+    .addEventListener("click", updateHandler);
+}
+
+if (document.querySelector("#cancel-btn")) {
+  document
+    .querySelector("#cancel-btn")
+    .addEventListener("click", cancelUpdateHandler);
+}
 
 if (document.querySelector(".post-list")) {
   document

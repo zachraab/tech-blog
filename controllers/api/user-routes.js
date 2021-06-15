@@ -78,6 +78,20 @@ router.post("/logout", (req, res) => {
   }
 });
 
+router.put("/:id", async (req, res) => {
+  console.log("_________UPDATE USER____________");
+  try {
+    const updatedUser = await User.update(req.body, {
+      where: {
+        id: req.params.id,
+      },
+    });
+    res.status(200).json(updatedUser);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 router.delete("/:id", async (req, res) => {
   try {
     const deletedUser = await User.destroy({
