@@ -6,7 +6,6 @@ const newFormHandler = async (event) => {
   const emoji = document.querySelector("#post-emoji").value;
   const image = document.querySelector("#post-image").value.trim();
   const allow_comments = document.querySelector("#post-allow-comments").checked;
-  console.log(allow_comments);
 
   if (title && content) {
     const response = await fetch(`/api/posts`, {
@@ -128,21 +127,30 @@ const delUserButtonHandler = async (event) => {
   }
 };
 
+const identifyButton = (event) => {
+  event.preventDefault();
+  if (event.target.innerHTML == "EDIT") {
+    editPostHandler(event);
+  } else if (event.target.innerHTML == "DELETE") {
+    delButtonHandler(event);
+  }
+};
+
 document
   .querySelector(".new-blog-post")
   .addEventListener("submit", newFormHandler);
 
-if (document.querySelector(".blog-post-delete")) {
+if (document.querySelector(".post-list")) {
   document
-    .querySelector(".blog-post-delete")
-    .addEventListener("click", delButtonHandler);
+    .querySelector(".post-list")
+    .addEventListener("click", identifyButton);
 }
 
-if (document.querySelector(".blog-post-edit")) {
-  document
-    .querySelector(".blog-post-edit")
-    .addEventListener("click", editPostHandler);
-}
+// if (document.querySelector(".blog-post-edit")) {
+//   document
+//     .querySelector(".blog-post-edit")
+//     .addEventListener("click", editPostHandler);
+// }
 
 document
   .querySelector("#delete-user-btn")
