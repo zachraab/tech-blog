@@ -40,7 +40,6 @@
 </div>
 {{/if}}
 {{/if}}
-
 <div class="mt-4 col-md-6">
   
   {{#if comment}}
@@ -53,13 +52,13 @@
             <p class="mt-4">{{comment}} -{{name}}</p>
           </div>
           
-          {{!-- {{#unless isApproved}}
-          {{#if owner}} --}}
+          {{!-- {{#unless isApproved}} --}}
+          {{#if owner}} 
           <div class="mt-4 col-md-2">
             <button type="click" class="btn btn-success btn-sm" data-id="{{id}}" data-approved={{isApproved}} id="approve-btn">Approve</button>
           </div>
-{{!--     {{/if}}
-          {{/unless}} --}}
+          {{/if}}
+          {{!-- {{/unless}} --}}
           <div class="mt-4 col-md-2">
             <button
               id="delete-comment-btn"

@@ -24,6 +24,28 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/:id", async (req, res) => {
+  try {
+    // Get all posts and JOIN with user data
+    const postData = await Post.findByPk(req.params.id, {
+      include: [
+        {
+          model: User,
+          attributes: ["name"],
+        },
+        {
+          model: Comment,
+          attributes: ["comment", "user_id"],
+        },
+      ],
+    });
+
+    res.json(postData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 router.post("/", withAuth, async (req, res) => {
   try {
     const newPost = await Post.create({
