@@ -28,6 +28,7 @@ router.get("/", async (req, res) => {
 
 router.get("/posts/:id", async (req, res) => {
   try {
+    //find the post
     const postData = await Post.findByPk(req.params.id, {
       include: [
         {
@@ -36,6 +37,7 @@ router.get("/posts/:id", async (req, res) => {
         },
       ],
     });
+    // find all associated comments
     const commentData = await Comment.findAll({
       where: {
         post_id: req.params.id,
@@ -48,6 +50,7 @@ router.get("/posts/:id", async (req, res) => {
     );
     const comment = commentArray.map((comment) => ({
       ...comment,
+      //check if current user is the same as the post creator and log boolean
       owner: req.session.user_id == post.user_id,
     }));
 

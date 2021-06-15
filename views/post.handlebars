@@ -12,7 +12,13 @@
   </div>
 
 <div class="row">
+{{#unless allow_comments}}
+<div class="mt-4">
+  <h4>Sorry, new comments have been disabled on this post!</h2>
+</div>
+{{/unless}}
 {{#if logged_in}}
+{{#if allow_comments}}
 <div class="mt-4 col-md-6">
   <h4>Leave a Comment:</h2>
 
@@ -33,6 +39,8 @@
   </form>
 </div>
 {{/if}}
+{{/if}}
+
 <div class="mt-4 col-md-6">
   
   {{#if comment}}
