@@ -71,9 +71,11 @@ document
   .querySelector(".new-project-form")
   .addEventListener("submit", newFormHandler);
 
-// document
-//   .querySelector(".project-list")
-//   .addEventListener("click", delButtonHandler);
+if (document.querySelector(".project-list")) {
+  document
+    .querySelector(".project-list")
+    .addEventListener("click", delButtonHandler);
+}
 
 document
   .querySelector("#delete-user-btn")

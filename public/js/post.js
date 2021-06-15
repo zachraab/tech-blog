@@ -73,10 +73,14 @@ if (document.querySelector("#new-comment-form")) {
     .addEventListener("submit", newCommentHandler);
 }
 
-// document
-//   .querySelector("#delete-comment-btn")
-//   .addEventListener("click", delCommentButtonHandler);
+if (document.querySelector("#delete-comment-btn")) {
+  document
+    .querySelector("#delete-comment-btn")
+    .addEventListener("click", delCommentButtonHandler);
+}
 
-document
-  .querySelector("#approve-btn")
-  .addEventListener("click", approveButtonHandler);
+if (document.querySelector("#approve-btn")) {
+  document
+    .querySelector("#approve-btn")
+    .addEventListener("click", approveButtonHandler);
+}
