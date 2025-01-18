@@ -18,9 +18,10 @@ router.get("/", async (req, res) => {
       ],
     });
     if (!commentData[0]) {
-      res.json({ message: "There are currently no comments to display" });
-    }
-    res.json(commentData);
+		res.json({ message: "There are currently no comments to display" });
+    } else {
+		res.json(commentData);
+	}
   } catch (err) {
     res.status(500).json(err);
   }
